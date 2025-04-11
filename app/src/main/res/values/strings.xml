@@ -2,4 +2,11 @@
     <string name="app_name">DataaKansalle</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- res/values/strings.xml -->
+    <string name="welcome_message">Tervetuloa Dataa Kansalle -sovellukseen!</string>
+    <string name="hint_municipality">Syötä kunnan nimi</string>
+    <string name="search">Hae</string>
+    <string name="recent_searches">Viimeisimmät haut:</string>
+    <string name="image_desc">Maisemakuva Suomesta</string>
+
 </resources>
