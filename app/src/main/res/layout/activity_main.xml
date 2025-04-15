@@ -63,10 +63,4 @@
         android:scrollbars="vertical" />
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="389dp"
-        android:layout_height="369dp"
-        app:srcCompat="@drawable/dataaKansalle" />
-
 </LinearLayout>

@@ -48,13 +48,6 @@
             android:gravity="center_vertical"
             android:paddingTop="10dp">
 
-            <ImageView
-                android:id="@+id/weatherIcon"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/ic_weather_placeholder"
-                android:contentDescription="Sääikoni"/>
-
             <TextView
                 android:id="@+id/weatherText"
                 android:layout_width="wrap_content"
