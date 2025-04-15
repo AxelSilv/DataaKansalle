@@ -6,14 +6,11 @@ public class MunicipalityData implements Serializable {
 
     private int year;
     private int population;
-    private String name;
-    private double employmentRate;
 
-    public MunicipalityData(int year, int population, String name, int employmentRate){
+    public MunicipalityData(int year, int population ){
         this.year = year;
         this.population = population;
-        this.name = name;
-        this.employmentRate = employmentRate;
+
     }
 
     public int getYear() {
@@ -31,11 +28,5 @@ public class MunicipalityData implements Serializable {
         this.population = population;
     }
 
-    public String getMunicipality() {
-        return name;
-    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

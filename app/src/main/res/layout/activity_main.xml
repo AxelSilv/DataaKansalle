@@ -40,9 +40,10 @@
         android:id="@+id/searchButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hae"
         android:layout_marginTop="10dp"
         android:backgroundTint="#2196F3"
+        android:onClick="switchActivity"
+        android:text="Hae"
         android:textColor="#FFFFFF" />
 
 
