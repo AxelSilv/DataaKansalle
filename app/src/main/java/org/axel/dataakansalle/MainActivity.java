@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void switchActivity(View view){
         Intent intent = new Intent(this, MunicipalityActivity.class);
+        String municipalityName = searchBar.getText().toString().trim();
+        intent.putExtra("valittuKunta", municipalityName);
         startActivity(intent);
     }
 }

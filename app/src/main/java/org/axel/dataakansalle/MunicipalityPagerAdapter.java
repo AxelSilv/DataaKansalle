@@ -6,8 +6,10 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 public class MunicipalityPagerAdapter extends FragmentStateAdapter {
-    public MunicipalityPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+    private final String municipality;
+    public MunicipalityPagerAdapter(@NonNull FragmentActivity fragmentActivity, String municipality) {
         super(fragmentActivity);
+        this.municipality = municipality;
     }
 
     @NonNull
@@ -15,7 +17,7 @@ public class MunicipalityPagerAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
         switch (position){
             case 0:
-                return new ChartFragment();
+                return ChartFragment.newInstance(municipality);
             case 1:
                 return new SuosikkiFragment();
             case 2:

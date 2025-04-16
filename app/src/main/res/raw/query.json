@@ -1,25 +1,10 @@
 {
   "query": [
     {
-      "code": "Vuosi",
-      "selection": {
-        "filter": "item",
-        "values": [
-          "2018",
-          "2019",
-          "2020",
-          "2021",
-          "2022"
-        ]
-      }
-    },
-    {
       "code": "Alue",
       "selection": {
         "filter": "item",
-        "values": [
-          "Korvaa tämä"
-        ]
+        "values": [""]
       }
     },
     {
@@ -28,6 +13,15 @@
         "filter": "item",
         "values": [
           "vaesto"
+        ]
+      }
+    },
+    {
+      "code": "Vuosi",
+      "selection": {
+        "filter": "item",
+        "values": [
+          "2020", "2021", "2022", "2023"
         ]
       }
     }

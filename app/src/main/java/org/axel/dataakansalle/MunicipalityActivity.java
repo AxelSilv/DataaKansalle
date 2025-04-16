@@ -19,9 +19,15 @@ public class MunicipalityActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_municipality);
 
+        String selectedMunicipality = getIntent().getStringExtra("valittuKunta");
+        if (selectedMunicipality == null || selectedMunicipality.isEmpty()) {
+            selectedMunicipality = "Helsinki";
+        }
+        MunicipalityPagerAdapter tabPagerAdapter = new MunicipalityPagerAdapter(this, selectedMunicipality);
+
         TabLayout tabLayout = findViewById(R.id.tabArea);
         ViewPager2 fragmentArea = findViewById(R.id.fragmentArea);
-        MunicipalityPagerAdapter tabPagerAdapter = new MunicipalityPagerAdapter(this);
+        //MunicipalityPagerAdapter tabPagerAdapter = new MunicipalityPagerAdapter(this);
         fragmentArea.setAdapter(tabPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

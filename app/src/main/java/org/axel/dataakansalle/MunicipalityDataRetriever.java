@@ -25,10 +25,9 @@ public class MunicipalityDataRetriever {
         try {
             areas = objectMapper.readTree(new URL("https://statfin.stat.fi/PxWeb/api/v1/en/StatFin/synt/statfin_synt_pxt_12dy.px"));
         } catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
+
             e.printStackTrace();
         }
 
@@ -49,9 +48,10 @@ public class MunicipalityDataRetriever {
             municipalityCodes.put(keys.get(i), values.get(i));
         }
 
-        String code = null;
-
-        code = municipalityCodes.get(municipality);
+        String code = municipalityCodes.get(municipality);
+        if (code == null) {
+            return null;
+        }
 
         try {
             URL url = new URL("https://pxdata.stat.fi:443/PxWeb/api/v1/fi/StatFin/synt/statfin_synt_pxt_12dy.px");
@@ -64,7 +64,8 @@ public class MunicipalityDataRetriever {
 
             JsonNode jsonInput = objectMapper.readTree(context.getResources().openRawResource(R.raw.query));
 
-            ((ObjectNode) jsonInput.get("query").get(0).get("selection")).putArray("values").add(code);
+            ((ObjectNode) jsonInput.get("query").get(0).get("selection"))
+                    .putArray("values").add(code);
             byte[] input = objectMapper.writeValueAsBytes(jsonInput);
             OutputStream outputStream = connection.getOutputStream();
             outputStream.write(input, 0, input.length);
