@@ -87,8 +87,6 @@ public class SuosikkiFragment extends Fragment {
 
                 });
             }
-
-
         });
     }
 }
