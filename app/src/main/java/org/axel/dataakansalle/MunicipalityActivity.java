@@ -27,7 +27,6 @@ public class MunicipalityActivity extends AppCompatActivity {
 
         TabLayout tabLayout = findViewById(R.id.tabArea);
         ViewPager2 fragmentArea = findViewById(R.id.fragmentArea);
-        //MunicipalityPagerAdapter tabPagerAdapter = new MunicipalityPagerAdapter(this);
         fragmentArea.setAdapter(tabPagerAdapter);
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
