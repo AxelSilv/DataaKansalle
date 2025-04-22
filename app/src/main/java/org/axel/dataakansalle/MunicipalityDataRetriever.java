@@ -79,20 +79,28 @@ public class MunicipalityDataRetriever {
 
             JsonNode municipalityData = objectMapper.readTree(response.toString());
             ArrayList<String> years = new ArrayList<>();
-            ArrayList<String> populations = new ArrayList<>();
 
             for (JsonNode node : municipalityData.get("dimension").get("Vuosi").get("category").get("label")) {
                 years.add(node.asText());
             }
 
-            for (JsonNode node : municipalityData.get("value")) {
-                populations.add(node.asText());
+            ArrayList<Integer> populations = new ArrayList<>();
+            ArrayList<Integer> populationChanges = new ArrayList<>();
+
+            JsonNode valuesNode = municipalityData.get("value");
+
+            for (int i = 0; i < valuesNode.size(); i += 2) {
+                populationChanges.add(valuesNode.get(i).asInt());
+                populations.add(valuesNode.get(i + 1).asInt());
             }
 
             ArrayList<MunicipalityData> populationData = new ArrayList<>();
 
             for (int i = 0; i < years.size(); i++) {
-                populationData.add(new MunicipalityData(Integer.valueOf(years.get(i)), Integer.valueOf(populations.get(i))));
+                int year = Integer.parseInt(years.get(i));
+                int population = populations.get(i);
+                int change = populationChanges.get(i);
+                populationData.add(new MunicipalityData(year, population, change));
             }
 
             return populationData;

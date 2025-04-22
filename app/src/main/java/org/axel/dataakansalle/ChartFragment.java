@@ -91,7 +91,9 @@ public class ChartFragment extends Fragment {
                         if (year >= 2020 && year <= 2023) {
                             entries.add(new BarEntry(index, population));
                             yearLabels.add(String.valueOf(year));
-                            sb.append("Vuosi ").append(year).append(": Väkiluku: ").append(population).append("\n");
+                            sb.append("Vuosi: ").append(year).append("Väkiluku: ").append(population)
+                                    .append(" Väestönmuutos: ").append(data.getPopulationChange())
+                                    .append("\n");
                             index++;
                         }
                     }

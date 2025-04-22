@@ -12,7 +12,8 @@
       "selection": {
         "filter": "item",
         "values": [
-          "vaesto"
+          "vaesto",
+          "valisays"
         ]
       }
     },

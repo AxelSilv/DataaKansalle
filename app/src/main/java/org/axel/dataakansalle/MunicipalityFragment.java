@@ -17,7 +17,9 @@ import java.util.concurrent.Executors;
 public class MunicipalityFragment extends Fragment {
 
     private TextView municipalityName;
-    private TextView employmentInfo;
+    private TextView employmentRate;
+    private TextView jobSelfSufficiency;
+
     private static final String ARG_MUNICIPALITY = "municipality";
     private String municipality;
 
@@ -35,14 +37,30 @@ public class MunicipalityFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_municipality, container, false);
 
         municipalityName = view.findViewById(R.id.municipalityName);
-        employmentInfo = view.findViewById(R.id.employmentInfo);
+        employmentRate = view.findViewById(R.id.employmentRate);
+        jobSelfSufficiency = view.findViewById(R.id.jobSelfSufficiency);
 
         if (getArguments() != null) {
             municipality = getArguments().getString(ARG_MUNICIPALITY);
             municipalityName.setText(municipality);
             fetchEmploymentData();
+            fetchJobData();
         }
         return view;
+    }
+    private void fetchJobData(){
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.execute(() -> {
+            JobDataRetriever retriever = new JobDataRetriever();
+            List<JobData> data = retriever.getData(requireContext(), municipality);
+            if(data != null && getActivity() != null){
+               JobData latest = data.get(data.size() -1);
+               String text = String.format("Työpaikkaomavaraisuus (%d): %.1f %%", latest.getYear(), latest.getEmploymentSufficiency());
+                requireActivity().runOnUiThread(() -> {
+                    jobSelfSufficiency.setText(text);
+                });
+            }
+        });
     }
     private void fetchEmploymentData() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -55,7 +73,10 @@ public class MunicipalityFragment extends Fragment {
                 String text = String.format("Työllisyysaste (%d): %.1f %%",
                         latest.getYear(), latest.getEmployment());
 
-                requireActivity().runOnUiThread(() -> employmentInfo.setText(text));
+                requireActivity().runOnUiThread(() -> {
+                    String currentText = employmentRate.getText().toString();
+                    employmentRate.setText(text + "\n" + currentText);
+                });
             }
         });
     }

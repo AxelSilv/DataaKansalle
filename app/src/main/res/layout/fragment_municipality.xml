@@ -28,10 +28,17 @@
             android:paddingBottom="10dp"/>
 
         <TextView
-            android:id="@+id/employmentInfo"
+            android:id="@+id/employmentRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Työllisyysaste: -\nTyöpaikkaomavaraisuus: -"
+            android:text="Työllisyysaste: -"
+            android:paddingBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/jobSelfSufficiency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Työpaikkaomavaraisuus: -"
             android:paddingBottom="10dp"/>
 
         <TextView
