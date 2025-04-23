@@ -41,8 +41,7 @@ public class EmploymentRetriever {
             for (JsonNode node : areas.get("variables").get(0).get("valueTexts")) {
                 keys.add(node.asText());
             }
-            Log.d("LUT", "Keys: " + keys.toString());
-            Log.d("LUT", "Values: " + values.toString());
+
 
             HashMap<String, String> municipalityCodes = new HashMap<>();
             for(int i = 0; i < keys.size(); i++) {
@@ -88,7 +87,7 @@ public class EmploymentRetriever {
                 for (int i = 0; i < years.size(); i++) {
                     employmentDataList.add(new EmploymentData(Integer.valueOf(years.get(i)), Float.valueOf(employment.get(i))));
                 }
-                Log.d("LUT", "Employment Data: " + employmentDataList.toString());
+
                 return employmentDataList;
 
             } catch (MalformedURLException e) {

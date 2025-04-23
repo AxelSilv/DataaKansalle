@@ -74,8 +74,7 @@ public class MunicipalityFragment extends Fragment {
                         latest.getYear(), latest.getEmployment());
 
                 requireActivity().runOnUiThread(() -> {
-                    String currentText = employmentRate.getText().toString();
-                    employmentRate.setText(text + "\n" + currentText);
+                    employmentRate.setText(text);
                 });
             }
         });

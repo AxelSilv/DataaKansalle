@@ -1,6 +1,7 @@
 package org.axel.dataakansalle;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,12 +27,14 @@ public class JobDataRetriever {
             ArrayList<String> keys = new ArrayList<>();
             ArrayList<String> values = new ArrayList<>();
 
-            for (JsonNode node : areas.get("variables").get(0).get("values")) {
+            for (JsonNode node : areas.get("variables").get(1).get("values")) {
                 values.add(node.asText());
             }
-            for (JsonNode node : areas.get("variables").get(0).get("valueTexts")) {
+            for (JsonNode node : areas.get("variables").get(1).get("valueTexts")) {
                 keys.add(node.asText());
             }
+            Log.d("LUT", "LEtsgoo: " + keys.toString());
+            Log.d("LUT", "Values: " + values.toString());
 
             HashMap<String, String> municipalityCodes = new HashMap<>();
             for (int i = 0; i < keys.size(); i++) {
@@ -77,6 +80,7 @@ public class JobDataRetriever {
             ArrayList<JobData> sufficiencyDataList = new ArrayList<>();
             for (int i = 0; i < years.size(); i++) {
                 sufficiencyDataList.add(new JobData(Integer.valueOf(years.get(i)), Float.valueOf(sufficiencyRate.get(i))));
+                Log.d("LUT", "Employment rate: " + sufficiencyDataList.toString());
             }
             return sufficiencyDataList;
 

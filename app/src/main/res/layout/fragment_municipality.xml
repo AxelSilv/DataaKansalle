@@ -20,12 +20,6 @@
             android:textStyle="bold"
             android:paddingBottom="12dp"/>
 
-        <TextView
-            android:id="@+id/populationInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Väkiluku: -\nVäestönlisäys: -"
-            android:paddingBottom="10dp"/>
 
         <TextView
             android:id="@+id/employmentRate"
@@ -41,26 +35,5 @@
             android:text="Työpaikkaomavaraisuus: -"
             android:paddingBottom="10dp"/>
 
-        <TextView
-            android:id="@+id/wikiDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wikipedia-kuvaus: ..."
-            android:paddingBottom="10dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingTop="10dp">
-
-            <TextView
-                android:id="@+id/weatherText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sää: -"
-                android:layout_marginStart="12dp"/>
-        </LinearLayout>
     </LinearLayout>
 </ScrollView>

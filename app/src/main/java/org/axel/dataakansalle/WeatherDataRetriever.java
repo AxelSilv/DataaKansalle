@@ -29,7 +29,7 @@ public class WeatherDataRetriever {
             throw new RuntimeException(e);
         }
 
-        Log.d("LUT", "Data haettu");
+
         String latitude = areas.get(0).get("lat").toString();
         String longitude = areas.get(0).get("lon").toString();
 
