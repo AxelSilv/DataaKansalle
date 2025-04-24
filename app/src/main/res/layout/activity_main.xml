@@ -2,24 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@android:color/white"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="@android:color/white">
+    android:padding="16dp">
 
 
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tervetuloa Dataa Kansalle -sovellukseen!"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textColor="#0D47A1"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp" />
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Tervetuloa Dataa Kansalle -sovellukseen!"
+        android:textColor="#0D47A1"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -51,8 +51,8 @@
         android:id="@+id/recentSearchesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Viimeisimmät haut:"
         android:layout_marginTop="16dp"
+        android:text="Viimeisimmät haut:"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
