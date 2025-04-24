@@ -20,6 +20,8 @@ public class SuosikkiFragment extends Fragment {
     private ImageView weatherIcon;
     private TextView txtTemperature;
     private TextView txtWeatherData, windSpeed;
+    private TextView employmentRate;
+    private TextView jobSelfSufficiency;
 
 
     private static final String ARG_MUNICIPALITY = "municipality";
@@ -51,9 +53,13 @@ public class SuosikkiFragment extends Fragment {
         txtTemperature = view.findViewById(R.id.temperature);
         txtWeatherData = view.findViewById(R.id.description);
         windSpeed = view.findViewById(R.id.windSpeed);
+        employmentRate = view.findViewById(R.id.employmentRate);
+        jobSelfSufficiency = view.findViewById(R.id.jobSelfSufficiency);
         if (getArguments() != null) {
             municipality = getArguments().getString(ARG_MUNICIPALITY);
             fetchWeatherData(municipality);
+            fetchEmploymentData();
+            fetchJobData();
         }
         return view;
     }
@@ -85,6 +91,35 @@ public class SuosikkiFragment extends Fragment {
                         weatherIcon.setImageResource(R.drawable.ic_weather_placeholder);
                     }
 
+                });
+            }
+        });
+    }
+    private void fetchEmploymentData() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            EmploymentRetriever retriever = new EmploymentRetriever();
+            var data = retriever.getData(requireContext(), municipality);
+            if (data != null && getActivity() != null) {
+                var latest = data.get(data.size() - 1);
+                String text = String.format("Työllisyysaste (%d): %.1f %%", latest.getYear(), latest.getEmployment());
+                requireActivity().runOnUiThread(() -> {
+                    employmentRate.setText(text);
+                });
+            }
+        });
+    }
+
+    private void fetchJobData() {
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.execute(() -> {
+            JobDataRetriever retriever = new JobDataRetriever();
+            var data = retriever.getData(requireContext(), municipality);
+            if (data != null && getActivity() != null) {
+                var latest = data.get(data.size() - 1);
+                String text = String.format("Työpaikkaomavaraisuus (%d): %.1f %%", latest.getYear(), latest.getEmploymentSufficiency());
+                requireActivity().runOnUiThread(() -> {
+                    jobSelfSufficiency.setText(text);
                 });
             }
         });
