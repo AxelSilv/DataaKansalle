@@ -73,7 +73,7 @@ public class SuosikkiFragment extends Fragment {
 
             if (data != null && getActivity() != null) {
                 requireActivity().runOnUiThread(() -> {
-                    municipalityName.setText(data.getName());
+                    municipalityName.setText(municipality);
                     txtTemperature.setText(data.convertToCelsius(data.getTemperature()) + " °C");
                     txtWeatherData.setText(data.getDescription());
                     windSpeed.setText(data.getWindSpeed() + " m/s");
