@@ -73,15 +73,18 @@ public class WeatherFragment extends Fragment {
             if (data != null && getActivity() != null) {
                 requireActivity().runOnUiThread(() -> {
                     municipalityName.setText(municipality);
-                    txtTemperature.setText(data.convertToCelsius(data.getTemperature()) + " °C");
+                    double celsius = Double.parseDouble(data.convertToCelsius(data.getTemperature()));
+                    txtTemperature.setText(Math.round(celsius) + " °C");
                     txtWeatherData.setText(data.getDescription());
-                    windSpeed.setText(data.getWindSpeed() + " m/s");
+                    double wind = Double.parseDouble(data.getWindSpeed());
+                    String formattedWind = String.format("%.1f", wind);
+                    windSpeed.setText(formattedWind + " m/s");
                     String weatherMain = data.getMain().toLowerCase();
 
                     if (weatherMain.equals("clear")) {
-                        weatherIcon.setImageResource(R.drawable.ic_sunny);
+                        weatherIcon.setImageResource(R.drawable.ic_sun);
                     } else if (weatherMain.equals("rain")) {
-                        weatherIcon.setImageResource(R.drawable.ic_rainy);
+                        weatherIcon.setImageResource(R.drawable.ic_rain);
                     } else if (weatherMain.equals("clouds")) {
                         weatherIcon.setImageResource(R.drawable.ic_cloudy);
                     } else if (weatherMain.equals("snow")) {
