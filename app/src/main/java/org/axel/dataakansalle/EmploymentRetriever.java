@@ -87,7 +87,6 @@ public class EmploymentRetriever {
                 for (int i = 0; i < years.size(); i++) {
                     employmentDataList.add(new EmploymentData(Integer.valueOf(years.get(i)), Float.valueOf(employment.get(i))));
                 }
-
                 return employmentDataList;
 
             } catch (MalformedURLException e) {

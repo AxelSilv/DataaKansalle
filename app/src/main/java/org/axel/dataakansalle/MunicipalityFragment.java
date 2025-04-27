@@ -15,24 +15,31 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
 public class MunicipalityFragment extends Fragment {
 
     private EditText editMunicipality1, editMunicipality2;
     private TextView txtResult1, txtResult2;
     private Button buttonCompare;
-    public MunicipalityFragment() {}
 
     private static final String ARG_MUNICIPALITY = "municipality";
     private String municipality;
 
+    public MunicipalityFragment() {}
 
     public static MunicipalityFragment newInstance(String municipality) {
         MunicipalityFragment fragment = new MunicipalityFragment();
         Bundle args = new Bundle();
-        args.putString("municipality", municipality);
+        args.putString(ARG_MUNICIPALITY, municipality);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            municipality = getArguments().getString(ARG_MUNICIPALITY);
+        }
     }
 
     @Override
@@ -44,9 +51,6 @@ public class MunicipalityFragment extends Fragment {
         buttonCompare = view.findViewById(R.id.buttonCompare);
         txtResult1 = view.findViewById(R.id.txtResult1);
         txtResult2 = view.findViewById(R.id.txtResult2);
-
-
-
 
         buttonCompare.setOnClickListener(v -> {
             String m1 = editMunicipality1.getText().toString().trim();
@@ -64,30 +68,33 @@ public class MunicipalityFragment extends Fragment {
 
     private void fetchComparisonData(String m1, String m2) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-
         executor.execute(() -> {
-            String capital1 = capitalizeFirstLetter(m1);
-            String capital2 = capitalizeFirstLetter(m2);
             MunicipalityDataRetriever municipalityDataRetriever = new MunicipalityDataRetriever();
-            EmploymentRetriever employmentRetriever = new EmploymentRetriever();
-            JobDataRetriever jobDataRetriever = new JobDataRetriever();
+            WeatherDataRetriever weatherDataRetriever = new WeatherDataRetriever();
 
-            List<MunicipalityData> data1 = municipalityDataRetriever.getData(requireContext(), capital1);
-            List<MunicipalityData> data2 = municipalityDataRetriever.getData(requireContext(), capital2);
+            List<MunicipalityData> data1 = municipalityDataRetriever.getData(requireContext(), m1);
+            List<MunicipalityData> data2 = municipalityDataRetriever.getData(requireContext(), m2);
 
-            List<EmploymentData> emp1 = employmentRetriever.getData(requireContext(), capital1);
-            List<EmploymentData> emp2 = employmentRetriever.getData(requireContext(), capital2);
-
-            List<JobData> job1 = jobDataRetriever.getData(requireContext(), capital1);
-            List<JobData> job2 = jobDataRetriever.getData(requireContext(), capital2);
+            WeatherData weather1 = weatherDataRetriever.getWeatherData(m1);
+            WeatherData weather2 = weatherDataRetriever.getWeatherData(m2);
 
             requireActivity().runOnUiThread(() -> {
-                txtResult1.setText(formatMunicipalityInfo(data1, emp1, job1, m1));
-                txtResult2.setText(formatMunicipalityInfo(data2, emp2, job2, m2));
+                if (data1 != null && !data1.isEmpty()) {
+                    txtResult1.setText(formatMunicipalityInfo(data1, weather1, m1));
+                } else {
+                    txtResult1.setText(m1 + ": Ei löytynyt väestödataa.");
+                }
+
+                if (data2 != null && !data2.isEmpty()) {
+                    txtResult2.setText(formatMunicipalityInfo(data2, weather2, m2));
+                } else {
+                    txtResult2.setText(m2 + ": Ei löytynyt väestödataa.");
+                }
             });
         });
     }
-    private String formatMunicipalityInfo(List<MunicipalityData> popData, List<EmploymentData> empData, List<JobData> jobData, String name) {
+
+    private String formatMunicipalityInfo(List<MunicipalityData> popData, WeatherData weatherData, String name) {
         StringBuilder sb = new StringBuilder();
         sb.append(name).append(":\n");
 
@@ -101,18 +108,13 @@ public class MunicipalityFragment extends Fragment {
             }
         }
 
-        for (EmploymentData e : empData) {
-            if (e.getYear() == 2023) {
-                sb.append("Työllisyysaste: ").append(String.format("%.2f", e.getEmployment())).append(" %\n");
-                foundData = true;
-            }
-        }
-
-        for (JobData j : jobData) {
-            if (j.getYear() == 2023) {
-                sb.append("Työpaikkaomavaraisuus: ").append(j.getEmploymentSufficiency()).append(" %\n");
-                foundData = true;
-            }
+        if (weatherData != null) {
+            sb.append("Säätila: ").append(weatherData.getMain()).append("\n");
+            sb.append("Lämpötila: ").append(weatherData.getTemperature()).append(" °C\n");
+            sb.append("Tuulen nopeus: ").append(weatherData.getWindSpeed()).append(" m/s\n");
+            foundData = true;
+        } else {
+            sb.append("Säätietoja ei saatavilla.\n");
         }
 
         if (!foundData) {
@@ -120,9 +122,5 @@ public class MunicipalityFragment extends Fragment {
         }
 
         return sb.toString();
-    }
-    private String capitalizeFirstLetter(String input) {
-        if (input == null || input.isEmpty()) return "";
-        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
     }
 }
