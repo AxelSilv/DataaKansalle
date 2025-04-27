@@ -110,7 +110,9 @@ public class MunicipalityFragment extends Fragment {
 
         if (weatherData != null) {
             sb.append("Säätila: ").append(weatherData.getMain()).append("\n");
-            sb.append("Lämpötila: ").append(weatherData.getTemperature()).append(" °C\n");
+            double kelvin = Double.parseDouble(weatherData.getTemperature());
+            double tempCelsius = kelvin - 273.15;
+            sb.append(String.format("Lämpötila: %d °C\n", Math.round(tempCelsius)));
             sb.append("Tuulen nopeus: ").append(weatherData.getWindSpeed()).append(" m/s\n");
             foundData = true;
         } else {
