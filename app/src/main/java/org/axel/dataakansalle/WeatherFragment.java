@@ -2,7 +2,6 @@ package org.axel.dataakansalle;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,7 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-public class SuosikkiFragment extends Fragment {
+public class WeatherFragment extends Fragment {
     private TextView municipalityName;
     private ImageView weatherIcon;
     private TextView txtTemperature;
@@ -27,8 +26,8 @@ public class SuosikkiFragment extends Fragment {
     private static final String ARG_MUNICIPALITY = "municipality";
 
 
-    public static SuosikkiFragment getInstance(String municipality) {
-        SuosikkiFragment fragment = new SuosikkiFragment();
+    public static WeatherFragment getInstance(String municipality) {
+        WeatherFragment fragment = new WeatherFragment();
         Bundle args = new Bundle();
         args.putString(ARG_MUNICIPALITY, municipality);
         fragment.setArguments(args);

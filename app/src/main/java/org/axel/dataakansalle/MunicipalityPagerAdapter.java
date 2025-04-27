@@ -19,7 +19,7 @@ public class MunicipalityPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return ChartFragment.newInstance(municipality);
             case 1:
-                return SuosikkiFragment.getInstance(municipality);
+                return WeatherFragment.getInstance(municipality);
             case 2:
                 return MunicipalityFragment.newInstance(municipality);
             default:
