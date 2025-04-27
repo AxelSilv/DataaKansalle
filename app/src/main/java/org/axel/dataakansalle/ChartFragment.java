@@ -60,7 +60,7 @@ public class ChartFragment extends Fragment {
         barChart = view.findViewById(R.id.populationChart);
         txtmunicipalityName = view.findViewById(R.id.txtPopulationInfo);
         municipalityTitle = view.findViewById(R.id.municipalityTitle);
-        municipalityTitle.setText(municipalityName + " väestökehitys:");
+        municipalityTitle.setText(municipalityName + " väestönkehitys:");
 
 
         if (municipalityName != null && !municipalityName.isEmpty()) {
